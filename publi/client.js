@@ -28,6 +28,25 @@ function addRow(name) {
     cell2.appendChild(viewButton);
 }
 
+function deleteFile(name) {
+    fetch('http://localhost:3000/deleteFile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ filename: name })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        // Refrescar la lista de archivos después de borrar
+        refreshFileList();
+    })
+    .catch(error => {
+        console.error('Error al borrar el archivo:', error);
+    });
+}
+
 // Obtener y mostrar la lista de archivos
 function refreshFileList() {
     fetch('http://localhost:3000/files')
