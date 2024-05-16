@@ -47,6 +47,24 @@ function deleteFile(name) {
     });
 }
 
+function viewFile(name) {
+    fetch('http://localhost:3000/viewFile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ filename: name })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('htmlCode').innerHTML = data.text;
+        //console.log('enviado a fetch:', data.text);
+    })
+    .catch(error => {
+        console.error('Error al visualizar el archivo:', error);
+    });
+}
+
 // Obtener y mostrar la lista de archivos
 function refreshFileList() {
     fetch('http://localhost:3000/files')
