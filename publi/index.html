@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pagina MackDown</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!--Lista-->
+        <table id="table_list_MD">
+            <tr>
+                <th>Nombre del Archivo</th>
+                <th>Acciones</th>
+            </tr>
+        </table>
+        <!--Nuevo archivo-->
+        <h3>Nueva Pagina en MarkDown</h3>
+        <label for="title">Titulo del Archivo</label>
+        <input type="text" id="title"></input><br><br>
+        <textarea id="markupText" cols="50" rows="10"></textarea><br>
+        <button id="saveButton">Guardar</button>
+
+        <!--Mostrar html-->
+        <h3>Pagina en html</h3>
+        <div id="htmlCode"></div>
+
+        <script src="client.js"></script>
+    </body>
+</html>
