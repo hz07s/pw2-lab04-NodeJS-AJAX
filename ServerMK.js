@@ -32,6 +32,25 @@ app.get('/files', (req, res) => {
     });
 });
 
+app.post('/viewFile', (req, res) => {
+    const filename = req.body.filename;
+    const filePath = path.join(__dirname, 'publi', 'MarkDownFiles', filename);
+	console.log('mk a ver: ' + filename);
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).json({ error: 'Error al leer el archivo Markdown' });
+			console.log("mal");
+        } else {
+			console.log(data);
+            const htmlText = md.render(data);
+            res.setHeader('Content-Type', 'application/json');
+			console.log('enviado a fetch:', htmlText);
+            res.end(JSON.stringify({ text: htmlText }));
+        }
+    });
+});
+
 app.post('/deleteFile', (req, res) => {
 	
     const filename = req.body.filename;
