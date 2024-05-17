@@ -31,3 +31,18 @@ app.get('/files', (req, res) => {
         }
     });
 });
+
+app.post('/deleteFile', (req, res) => {
+	
+    const filename = req.body.filename;
+    const filePath = path.join(__dirname, 'publi', 'MarkDownFiles', filename)
+	console.log('mk a eliminar: ', filename);
+	
+    fs.unlink(filePath, (err) => {
+        if (err) {
+            res.status(500).json({ error: 'Error al eliminar el archivo' });
+        } else {
+            res.json({ message: 'Archivo eliminado correctamente' });
+        }
+    });
+});
