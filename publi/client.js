@@ -85,3 +85,34 @@ function refreshFileList() {
             console.error('Error al obtener la lista de archivos:', error);
         });
 }
+
+// Evento click del botón "Guardar"
+document.getElementById('saveButton').addEventListener('click', function() {
+    var title = document.getElementById('title').value.trim();
+    var markupText = document.getElementById('markupText').value.trim();
+
+    if (title === "") {
+        alert("Por favor, ingresa un título para el archivo.");
+        return;
+    }
+
+    fetch('http://localhost:3000/saveFile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: title, markdownText: markupText })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        // Obtener la lista actualizada de archivos
+        refreshFileList();
+        // Limpiar los campos después de guardar el archivo
+        document.getElementById('title').value = "";
+        document.getElementById('markupText').value = "";
+    })
+    .catch(error => {
+        console.error('Error al guardar el archivo:', error);
+    });
+});
