@@ -65,3 +65,18 @@ app.post('/deleteFile', (req, res) => {
         }
     });
 });
+
+app.post('/saveFile', (req, res) => {
+    const { title, markdownText } = req.body;
+    const fileName = title + '.md'; // Asegurar un nombre de archivo válido
+
+    const filePath = path.join(__dirname, 'publi', 'MarkDownFiles', fileName);
+
+    fs.writeFile(filePath, markdownText, 'utf8', (err) => {
+        if (err) {
+            res.status(500).json({ error: 'Error al crear el archivo Markdown' });
+        } else {
+            res.json({ message: 'Archivo Markdown creado correctamente' });
+        }
+    });
+});
